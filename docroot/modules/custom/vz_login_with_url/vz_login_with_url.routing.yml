@@ -1,0 +1,7 @@
+verizon.guest_login:
+  path: 'guest/login'
+  defaults:
+    _controller:  '\Drupal\vz_login_with_url\Controller\VerizonLogin::login'
+    _title: 'Guest Login'
+  requirements:
+    _access: 'TRUE'

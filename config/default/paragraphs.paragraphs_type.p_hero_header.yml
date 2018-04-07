@@ -1,0 +1,20 @@
+uuid: 622af5a0-d545-4aed-b7f2-300246e2b5ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - workbench_moderation
+third_party_settings:
+  workbench_moderation:
+    enabled: 0
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+id: p_hero_header
+label: 'Hero Header'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

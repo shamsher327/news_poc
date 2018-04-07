@@ -1,0 +1,48 @@
+uuid: 3165f271-f619-4510-9492-2db5bdf2dd36
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.link_and_image
+    - entity_browser.browser.image_browser
+    - field.field.block_content.link_and_image.field_image
+    - field.field.block_content.link_and_image.field_url
+  module:
+    - entity_browser
+    - link
+    - workbench_moderation
+id: block_content.link_and_image.default
+targetEntityType: block_content
+bundle: link_and_image
+mode: default
+content:
+  field_image:
+    type: entity_browser_file
+    weight: 28
+    settings:
+      entity_browser: image_browser
+      field_widget_edit: true
+      field_widget_remove: true
+      view_mode: default
+      preview_image_style: thumbnail
+      open: true
+      selection_mode: selection_append
+    region: content
+    third_party_settings: {  }
+  field_url:
+    weight: 27
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

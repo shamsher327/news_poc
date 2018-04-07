@@ -1,0 +1,20 @@
+uuid: aedfdf79-05d1-4407-8338-43d8bf3e5ba8
+langcode: en
+status: true
+dependencies:
+  theme:
+    - citibank
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: citibank_local_actions
+theme: citibank
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

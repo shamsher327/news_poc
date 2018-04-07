@@ -1,0 +1,35 @@
+_core:
+  default_config_hash: _5qrDuRmWmRVjW00si3U1s1NrgrocA4N653EYGRfgEE
+schemas:
+  bootstrap: 8000
+  citibank: 8000
+logo:
+  path: themes/custom/citibank/logo.jpg
+  url: ''
+  use_default: false
+table_responsive: '-1'
+cdn_provider_import_data: ''
+table: ''
+fluid_container: 1
+region_wells:
+  navigation: ''
+  navigation_collapsible: ''
+  header: ''
+  highlighted: ''
+  help: ''
+  content: ''
+  sidebar_first: ''
+  sidebar_second: ''
+  footer_first: ''
+  footer_second: ''
+cdn_provider: ''
+favicon:
+  mimetype: image/vnd.microsoft.icon
+  path: profiles/contrib/lightning/favicon.ico
+  url: 'http://local.citi.com/profiles/contrib/lightning/favicon.ico'
+  use_default: false
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true

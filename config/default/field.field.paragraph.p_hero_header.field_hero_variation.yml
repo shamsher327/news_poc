@@ -1,0 +1,21 @@
+uuid: bcb8f9be-57a6-4b65-8b84-466810f6c784
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_hero_variation
+    - paragraphs.paragraphs_type.p_hero_header
+  module:
+    - options
+id: paragraph.p_hero_header.field_hero_variation
+field_name: field_hero_variation
+entity_type: paragraph
+bundle: p_hero_header
+label: 'Hero Variation'
+description: 'Hero Header display variation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

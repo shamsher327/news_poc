@@ -1,0 +1,72 @@
+uuid: a31a0d9e-6e62-42f9-95f3-fb12acd30f01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.p_hero_header.field_author_name
+    - field.field.paragraph.p_hero_header.field_banner_image
+    - field.field.paragraph.p_hero_header.field_hero_variation
+    - field.field.paragraph.p_hero_header.field_sub_title
+    - field.field.paragraph.p_hero_header.field_title
+    - field.field.paragraph.p_hero_header.field_video_url
+    - paragraphs.paragraphs_type.p_hero_header
+  module:
+    - image
+    - options
+    - video_embed_field
+id: paragraph.p_hero_header.default
+targetEntityType: paragraph
+bundle: p_hero_header
+mode: default
+content:
+  field_author_name:
+    weight: 4
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_banner_image:
+    weight: 2
+    label: hidden
+    settings:
+      image_style: ''
+    third_party_settings: {  }
+    type: image_url
+    region: content
+  field_hero_variation:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_key
+    region: content
+  field_sub_title:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_video_url:
+    weight: 3
+    label: hidden
+    settings:
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: true
+    third_party_settings: {  }
+    type: video_embed_field_video
+    region: content
+hidden: {  }

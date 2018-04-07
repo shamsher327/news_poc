@@ -1,0 +1,9 @@
+uuid: 10419c2c-933d-48ca-800a-2fa3a40fd593
+langcode: en
+status: true
+dependencies: {  }
+name: Pillar
+vid: pillar
+description: 'List Pillar of type. '
+hierarchy: 0
+weight: 0

@@ -1,0 +1,27 @@
+uuid: d71f12cd-cdf9-4026-be22-9c759b9f926a
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - workbench_moderation
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  workbench_moderation:
+    enabled: true
+    allowed_moderation_states:
+      - published
+      - archived
+      - draft
+      - needs_review
+    default_moderation_state: draft
+name: Article
+type: article
+description: 'Article Content type.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,22 @@
+uuid: 101283c6-b7bd-406b-8842-591bd66e34bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.speedbump
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.speedbump.body
+field_name: body
+entity_type: block_content
+bundle: speedbump
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

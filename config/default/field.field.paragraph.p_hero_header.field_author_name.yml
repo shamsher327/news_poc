@@ -1,0 +1,19 @@
+uuid: f35710e1-ccee-49fd-8b1a-192450705a95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_author_name
+    - paragraphs.paragraphs_type.p_hero_header
+id: paragraph.p_hero_header.field_author_name
+field_name: field_author_name
+entity_type: paragraph
+bundle: p_hero_header
+label: 'Author name'
+description: 'Article Author name.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

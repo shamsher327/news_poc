@@ -1,0 +1,16 @@
+uuid: bc6bea91-6220-41a9-80bb-cd7523b4b719
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'view article revisions'
+  - 'view media'
+  - 'view paragraph content p_hero_header'

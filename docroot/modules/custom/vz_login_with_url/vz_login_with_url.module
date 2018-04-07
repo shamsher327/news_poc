@@ -1,0 +1,26 @@
+<?php
+
+use Drupal\menu_per_role\MenuPerRoleLinkTreeManipulator;
+use Drupal\Core\Menu\DefaultMenuLinkTreeManipulators;
+use Drupal\Core\Menu\MenuLinkInterface;
+use Drupal\menu_link_content\Plugin\Menu\MenuLinkContent;
+/**
+ * Implements hook_user_login().
+ */
+function vz_login_with_url_user_login($account) {
+  global $base_url;
+  $response = new Symfony\Component\HttpFoundation\RedirectResponse($base_url);
+  $response->send();
+  return;
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function vz_login_with_url_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() != 'menu_link_content') {
+    return;
+  }
+
+  unset($fields['menu_per_role__hide_role']);
+}

@@ -1,0 +1,22 @@
+uuid: 3627b072-c1f1-4c0b-823e-d7dc9129ad47
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - citibank
+_core:
+  default_config_hash: jQQUUWN2Uxr5qZtc9zcJKBCxpKY8orN1u2HPqYYRQDI
+id: citibank_powered
+theme: citibank
+region: navigation
+weight: -6
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }

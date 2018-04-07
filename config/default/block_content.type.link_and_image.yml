@@ -1,0 +1,8 @@
+uuid: f6354e4b-f1b0-47d1-ac9e-4dd19cae6d13
+langcode: en
+status: true
+dependencies: {  }
+id: link_and_image
+label: 'Link and Image'
+revision: 1
+description: 'use this for link and image fields'

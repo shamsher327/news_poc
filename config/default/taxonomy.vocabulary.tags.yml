@@ -1,0 +1,9 @@
+uuid: cacb28ad-b6c4-49e1-87e2-8ed42547744a
+langcode: en
+status: true
+dependencies: {  }
+name: Tags
+vid: tags
+description: 'Free Tagging'
+hierarchy: 0
+weight: 0

@@ -1,0 +1,24 @@
+profile_roles:
+  reporter:
+    id: reporter
+    default: 1
+    label: Reporter
+    needs_approval: 1
+  writer:
+    id: writer
+    default: 1
+    label: Writer
+    needs_approval: 1
+  editor:
+    id: editor
+    default: 1
+    label: Editor
+    needs_approval: 1
+  volunteer:
+    id: volunteer
+    default: 1
+    label: Volunteer
+    needs_approval: 0
+mailing_list: tech.shanu786@gmail.com
+email_subject: 'Registration Body'
+email_body: Registered.

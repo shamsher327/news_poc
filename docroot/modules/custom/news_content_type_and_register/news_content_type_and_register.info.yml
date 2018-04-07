@@ -1,0 +1,28 @@
+name: 'News content type and register'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - block_content
+  - comment
+  - entity_legal
+  - field
+  - file
+  - image
+  - lightning_core
+  - media
+  - menu_ui
+  - metatag
+  - node
+  - options
+  - panelizer
+  - path
+  - shs
+  - taxonomy
+  - text
+  - user
+  - video_embed_field
+  - workbench_moderation
+version: 8.x-1.0
+package: news
+description: 'News Content type'

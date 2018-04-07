@@ -1,0 +1,31 @@
+uuid: d1d1553a-fbf5-441d-9cec-d5314a372da7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_component
+    - node.type.article
+    - paragraphs.paragraphs_type.p_hero_header
+  module:
+    - entity_reference_revisions
+id: node.article.field_component
+field_name: field_component
+entity_type: node
+bundle: article
+label: Component
+description: 'Reference components.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      p_hero_header: p_hero_header
+    target_bundles_drag_drop:
+      p_hero_header:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

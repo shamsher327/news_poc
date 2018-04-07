@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies: {  }
+id: terms_conditions
+label: 'Terms & Conditions'
+published_version: terms_conditions_1521298667
+require_signup: true
+require_existing: false
+settings:
+  new_users:
+    require: true
+    require_method: form_inline
+  existing_users:
+    require: false
+    require_method: message

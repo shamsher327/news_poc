@@ -1,0 +1,50 @@
+<?php
+/**
+ * @file
+ * Install file for Verizon module.
+ */
+
+/**
+ * Implements hook_install.
+ */
+function vz_login_with_url_install()
+{
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $user = \Drupal\user\Entity\User::create();
+
+  // List out all roles.
+  $roles = \Drupal\user\Entity\Role::loadMultiple();
+  foreach ($roles as $role => $rolesObj) {
+    $role_list[$role] = $rolesObj->get('label');
+  }
+  if (!in_array('Guest', $role_list)) {
+    // Create Role.
+    $role = \Drupal\user\Entity\Role::create(array('id' => 'guest', 'label' => 'Guest'));
+    $role->save();
+  }
+  //Mandatory settings
+  $user->setPassword('guest');
+  $user->enforceIsNew();
+  $user->setEmail('guest@guest.com');
+  $user->setUsername('guest@guest.com'); //This username must be unique and accept only a-Z,0-9, - _ @ .
+
+  //Optional settings
+  $user->set("init", 'email');
+  $user->set("langcode", $language);
+  $user->set("preferred_langcode", $language);
+  $user->set("preferred_admin_langcode", $language);
+  $user->activate();
+
+  //Save user
+  $user->addRole('guest');
+  $res = $user->save();
+}
+
+function vz_login_with_url_uninstall()
+{
+  // Delete the user created during install.
+  $username = 'guest@guest.com';
+  $storage = \Drupal::entityTypeManager()->getStorage('user');
+  $users = $storage->loadByProperties(['name' => $username]);
+  $storage->delete($users);
+}

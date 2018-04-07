@@ -1,0 +1,8 @@
+uuid: 20b2bb6f-cf1f-4b5d-a6d2-d37d6888c618
+langcode: en
+status: true
+dependencies: {  }
+id: speedbump
+label: Speedbump
+revision: 1
+description: 'Use for external links warning box'

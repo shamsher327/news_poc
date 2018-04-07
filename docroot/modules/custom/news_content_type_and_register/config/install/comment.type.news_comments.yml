@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: news_comments
+label: 'News Comments'
+target_entity_type_id: comment
+description: 'Comments News type.'

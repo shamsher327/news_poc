@@ -1,0 +1,166 @@
+diff --git a/page_manager.services.yml b/page_manager.services.yml
+index 33bce44..f8fcf78 100644
+--- a/page_manager.services.yml
++++ b/page_manager.services.yml
+@@ -27,8 +27,10 @@ services:
+     arguments: ['@entity_type.manager', '@path.current', '@request_stack']
+     tags:
+       # Run as late as possible to allow all other filters to run first.
+-      - { name: non_lazy_route_filter, priority: -1024 }
++      # @todo Review this when https://www.drupal.org/node/2915772 is done.
++      - { name: route_filter, priority: -1024 }
+       - { name: service_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
++      - { name: service_collector, tag: route_enhancer, call: addRouteEnhancer }
+   page_manager.route_name_response_subscriber:
+     class: Drupal\page_manager\EventSubscriber\RouteNameResponseSubscriber
+     tags:
+diff --git a/src/Routing/RouteEnhancerCollectorTrait.php b/src/Routing/RouteEnhancerCollectorTrait.php
+index 0ca6c44..e91e4a3 100644
+--- a/src/Routing/RouteEnhancerCollectorTrait.php
++++ b/src/Routing/RouteEnhancerCollectorTrait.php
+@@ -7,24 +7,22 @@
+ 
+ namespace Drupal\page_manager\Routing;
+ 
+-use Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface;
++use Drupal\Core\Routing\EnhancerInterface;
+ 
+ /**
+  * Provides a trait to make a service a collector of route enhancers.
+- *
+- * @todo Move to Symfony CMF in https://github.com/symfony-cmf/Routing/pull/155.
+  */
+ trait RouteEnhancerCollectorTrait {
+ 
+   /**
+-   * @var \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[]
++   * @var \Drupal\Core\Routing\EnhancerInterface[]
+    */
+   protected $enhancers = array();
+ 
+   /**
+    * Cached sorted list of enhancers
+    *
+-   * @var \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[]
++   * @var \Drupal\Core\Routing\EnhancerInterface[]
+    */
+   protected $sortedEnhancers = array();
+ 
+@@ -35,12 +33,12 @@ trait RouteEnhancerCollectorTrait {
+    * The order of the enhancers is determined by the priority, the higher the
+    * value, the earlier the enhancer is run.
+    *
+-   * @param \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface $enhancer
++   * @param \Drupal\Core\Routing\EnhancerInterface $enhancer
+    * @param int $priority
+    *
+    * @return $this
+    */
+-  public function addRouteEnhancer(RouteEnhancerInterface $enhancer, $priority = 0) {
++  public function addRouteEnhancer(EnhancerInterface $enhancer, $priority = 0) {
+     if (empty($this->enhancers[$priority])) {
+       $this->enhancers[$priority] = array();
+     }
+@@ -54,7 +52,7 @@ trait RouteEnhancerCollectorTrait {
+   /**
+    * Sorts the enhancers and flattens them.
+    *
+-   * @return \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[]
++   * @return \Drupal\Core\Routing\EnhancerInterface[]
+    *   The enhancers ordered by priority.
+    */
+   protected function getRouteEnhancers() {
+@@ -70,7 +68,7 @@ trait RouteEnhancerCollectorTrait {
+    *
+    * The highest priority number is the highest priority (reverse sorting).
+    *
+-   * @return \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[]
++   * @return \Drupal\Core\Routing\EnhancerInterface[]
+    *   The sorted enhancers.
+    */
+   protected function sortRouteEnhancers() {
+diff --git a/src/Routing/VariantRouteFilter.php b/src/Routing/VariantRouteFilter.php
+index 0c271d8..b23bda8 100644
+--- a/src/Routing/VariantRouteFilter.php
++++ b/src/Routing/VariantRouteFilter.php
+@@ -1,17 +1,12 @@
+ <?php
+ 
+-/**
+- * @file
+- * Contains \Drupal\page_manager\Routing\VariantRouteFilter.
+- */
+-
+ namespace Drupal\page_manager\Routing;
+ 
+ use Drupal\Component\Plugin\Exception\ContextException;
+ use Drupal\Component\Utility\NestedArray;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Path\CurrentPathStack;
+-use Symfony\Cmf\Component\Routing\NestedMatcher\RouteFilterInterface;
++use Drupal\Core\Routing\FilterInterface;
+ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\RequestStack;
+@@ -25,7 +20,7 @@ use Symfony\Component\Routing\RouteCollection;
+  * needs to be filtered. Here is where we run variant selection, which requires
+  * gathering contexts.
+  */
+-class VariantRouteFilter implements RouteFilterInterface {
++class VariantRouteFilter implements FilterInterface {
+ 
+   use RouteEnhancerCollectorTrait;
+ 
+@@ -141,9 +136,9 @@ class VariantRouteFilter implements RouteFilterInterface {
+           return $name;
+         }
+ 
+-        // Restore the original request attributes, this must be done in the loop
+-        // or the request attributes will not be calculated correctly for the
+-        // next route.
++        // Restore the original request attributes, this must be done in
++        // the loop or the request attributes will not be calculated correctly
++        // for the next route.
+         $request->attributes->replace($original_attributes);
+         $this->requestStack->pop();
+       }
+diff --git a/tests/src/Unit/VariantRouteFilterTest.php b/tests/src/Unit/VariantRouteFilterTest.php
+index 1664fbb..ea60e91 100644
+--- a/tests/src/Unit/VariantRouteFilterTest.php
++++ b/tests/src/Unit/VariantRouteFilterTest.php
+@@ -14,7 +14,7 @@ use Drupal\Core\Path\CurrentPathStack;
+ use Drupal\page_manager\PageVariantInterface;
+ use Drupal\page_manager\Routing\VariantRouteFilter;
+ use Drupal\Tests\UnitTestCase;
+-use Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface;
++use Drupal\Core\Routing\EnhancerInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\RequestStack;
+ use Symfony\Component\Routing\Route;
+@@ -331,7 +331,7 @@ class VariantRouteFilterTest extends UnitTestCase {
+     $this->currentPath->getPath($request)->willReturn('/path/with/1');
+     $this->pageVariantStorage->load('a_variant')->willReturn($page_variant->reveal());
+ 
+-    $route_enhancer = $this->prophesize(RouteEnhancerInterface::class);
++    $route_enhancer = $this->prophesize(EnhancerInterface::class);
+     $this->routeFilter->addRouteEnhancer($route_enhancer->reveal());
+     $result_enhance_attributes = $expected_enhance_attributes = [
+       'foo' => 'bar',
+@@ -375,7 +375,7 @@ class VariantRouteFilterTest extends UnitTestCase {
+     $this->currentPath->getPath($request)->willReturn('/path/with/1');
+     $this->pageVariantStorage->load('a_variant')->willReturn($page_variant->reveal());
+ 
+-    $route_enhancer = $this->prophesize(RouteEnhancerInterface::class);
++    $route_enhancer = $this->prophesize(EnhancerInterface::class);
+     $this->routeFilter->addRouteEnhancer($route_enhancer->reveal());
+     $expected_enhance_attributes = [
+       'foo' => 'bar',
+@@ -436,7 +436,7 @@ class VariantRouteFilterTest extends UnitTestCase {
+     $this->currentPath->getPath($request)->willReturn('/path/with/1');
+ 
+     $expected_attributes = ['slug' => 1, '_route_object' => $route, '_route' => $route_name];
+-    $route_enhancer = $this->prophesize(RouteEnhancerInterface::class);
++    $route_enhancer = $this->prophesize(EnhancerInterface::class);
+     $route_enhancer->enhance($expected_attributes, $request)->willReturn(['slug' => 'slug 1']);
+     $this->routeFilter->addRouteEnhancer($route_enhancer->reveal());
+ 

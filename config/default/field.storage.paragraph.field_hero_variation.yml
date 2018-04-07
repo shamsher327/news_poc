@@ -1,0 +1,33 @@
+uuid: fbefcc82-7f1c-454d-a2f5-936218d76976
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_hero_variation
+field_name: field_hero_variation
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: title_on_top_image
+      label: 'Title on top of image'
+    -
+      value: title_only
+      label: 'Title only'
+    -
+      value: video_only
+      label: 'Video Only'
+    -
+      value: title_over_image
+      label: 'Title over image'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

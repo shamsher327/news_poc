@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_legal.document.terms_conditions
+    - field.field.entity_legal_document_version.terms_conditions.entity_legal_document_text
+  module:
+    - text
+id: entity_legal_document_version.terms_conditions.default
+targetEntityType: entity_legal_document_version
+bundle: terms_conditions
+mode: default
+content:
+  entity_legal_document_text:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

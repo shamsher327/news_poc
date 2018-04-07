@@ -1,0 +1,22 @@
+uuid: b294d3f7-acb2-43c0-8830-3bd22d63fda1
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - citibank
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: citibank_help
+theme: citibank
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }
